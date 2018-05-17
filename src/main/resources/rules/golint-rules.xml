@@ -1420,7 +1420,7 @@ fmt.Errorf("a string with format: %d %s")
 	</rule>
 	
 	
-			<rule>
+	<rule>
 		<key>vet:Lock</key>
 		<name>Copying locks</name>
 		<internalKey>vet:Lock</internalKey>
@@ -1445,6 +1445,1014 @@ fmt.Errorf("a string with format: %d %s")
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
 	</rule>
-				
+	<rule>
+		<key>durcheck:TimeDurationMeans</key>
+		<name>implicit time.Duration</name>
+		<internalKey>durcheck:TimeDurationMeans</internalKey>
+		<description><![CDATA[
+			<p>Implicit time.Duration means nanoseconds.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://golang.org/pkg/time/#Duration">golang.org</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>time</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>3min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>prealloc:Preallocation</key>
+		<name>Consider preallocation</name>
+		<internalKey>prealloc:Preallocation</internalKey>
+		<description><![CDATA[
+			<p>The slice should be preallocated and initialized with built-in make function.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://blog.golang.org/go-slices-usage-and-internals">blog.golang.org</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>performance</tag>
+		<tag>zero-value</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>badtime:MapTimeKey</key>
+		<name>Map stores time.Time as a key</name>
+		<internalKey>badtime:MapTimeKey</internalKey>
+		<description><![CDATA[
+			<p>Storing an instance of time.Time as part of a map key is not recommended. While an instance of time.Time can be safely stored as part of the key of a map, it's very easy to introduce subtle bugs this way and it's often much safer to use something like an int64 to store a unix timestamp at nanosecond resolution instead.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://golang.org/src/time/time.go?#L101">golang.org</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>time</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>badtime:TimeComparison</key>
+		<name>Comparison time.Time using == instead of .Equal()</name>
+		<internalKey>badtime:TimeComparison</internalKey>
+		<description><![CDATA[
+			<p>This issue can be particularly troublesome for projects upgrading to Golang 1.9 because in previous versions of Golang, two instances of time.Time for the same moment of time would only not be == to each other if they represented different timezones, whereas in Golang 1.9 and later they can also not be == to each other if one contains a monotonic bit and the other does not.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://golang.org/src/time/time.go?#L101">golang.org</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>time</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>goconst:OtherOccur</key>
+		<name>Another occurance of the variable has been found</name>
+		<internalKey>goconst:OtherOccur</internalKey>
+		<description><![CDATA[
+			<p>There are obvious benefits to using constants instead of repeating strings, mostly to ease maintenance. Cannot argue against changing a single constant versus many strings.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://github.com/jgautheron/goconst">github.com</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>goconst:MatchingConst</key>
+		<name>A matching constant has been found</name>
+		<internalKey>goconst:MatchingConst</internalKey>
+		<description><![CDATA[
+			<p>There are obvious benefits to using constants instead of repeating strings, mostly to ease maintenance. Cannot argue against changing a single constant versus many strings.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://github.com/jgautheron/goconst">github.com</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1001</key>
+		<name>Copy() for slices</name>
+		<internalKey>gosimple:S1001</internalKey>
+		<description><![CDATA[
+			<p>Use copy() for copying elements from one slice to another.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1002</key>
+		<name>Cimparison to bool</name>
+		<internalKey>gosimple:S1002</internalKey>
+		<description><![CDATA[
+			<p>Use `if x {}` instead of `if x == true {}`</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1000</key>
+		<name>Select with a single case</name>
+		<internalKey>gosimple:S1000</internalKey>
+		<description><![CDATA[
+			<p>select with a single case can be replaced with a simple send or receive.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1003</key>
+		<name>strings.Index instead of strings.Contains</name>
+		<internalKey>gosimple:S1003</internalKey>
+		<description><![CDATA[
+			<p>Should use `if strings.Contains(x, y) {}` instead of `if strings.Index(x, y) != -1 {}`</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1004</key>
+		<name>bytes.Compare</name>
+		<internalKey>gosimple:S1004</internalKey>
+		<description><![CDATA[
+			<p>Should use `bytes.Equal` instead of `bytes.Compare`</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1005</key>
+		<name>Unnecessary blank identifier</name>
+		<internalKey>gosimple:S1005</internalKey>
+		<description><![CDATA[
+			<p>Should use `for range s{}` instead of `for _ = range s {}`</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1005Map</key>
+		<name>Unnecessary blank identifier</name>
+		<internalKey>gosimple:S1005Map</internalKey>
+		<description><![CDATA[
+			<p>Should use `x = someMap[key]` instead of `x, _ = someMap[key]`</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1005Chan</key>
+		<name>Unnecessary blank identifier</name>
+		<internalKey>gosimple:S1005Chan</internalKey>
+		<description><![CDATA[
+			<p>Should use `<- ch` instead of `_ = <- ch`</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1007</key>
+		<name>Avoid double escaping</name>
+		<internalKey>gosimple:S1007</internalKey>
+		<description><![CDATA[
+			<p>Raw string literals use ` instead of " and do not support any escape sequences. This means that the backslash (\) can be used freely, without the need of escaping.
 
+Since regular expressions have their own escape sequences, raw strings can improve their readability.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1008</key>
+		<name>Returning bool</name>
+		<internalKey>gosimple:S1008</internalKey>
+		<description><![CDATA[
+			<p>Boolean can be returned as `return <expr>`</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>	
+	<rule>
+		<key>gosimple:S1009</key>
+		<name>nil check for len()</name>
+		<internalKey>gosimple:S1009</internalKey>
+		<description><![CDATA[
+			<p>The len function is defined for all slices, even nil ones, which have a length of zero. It is not necessary to check if a slice is not nil before checking that its length is not zero.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1010</key>
+		<name>Default slice index</name>
+		<internalKey>gosimple:S1010</internalKey>
+		<description><![CDATA[
+			<p>When slicing, the second index defaults to the length of the value, making s[n:len(s)] and s[n:] equivalent.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1011</key>
+		<name>Concatenating two slices</name>
+		<internalKey>gosimple:S1011</internalKey>
+		<description><![CDATA[
+			<p>Use a single append to concatenate two slices: x = append(x, y...)</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1012</key>
+		<name>Time substraction</name>
+		<internalKey>gosimple:S1012</internalKey>
+		<description><![CDATA[
+			<p>The time.Since helper has the same effect as using time.Now().Sub(x) but is easier to read.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>time</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1013</key>
+		<name>Returning error</name>
+		<internalKey>gosimple:S1013</internalKey>
+		<description><![CDATA[
+			<p>Should not check if err is nil, just `return err`</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1016</key>
+		<name>Type conversion</name>
+		<internalKey>gosimple:S1016</internalKey>
+		<description><![CDATA[
+			<p>Two struct types with identical fields can be converted between each other. In older versions of Go, the fields had to have identical struct tags. Since Go 1.8, however, struct tags are ignored during conversions. It is thus not necessary to manually copy every field individually.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1017</key>
+		<name>Manual slicing over string</name>
+		<internalKey>gosimple:S1017</internalKey>
+		<description><![CDATA[
+			<p>Instead of using strings.HasPrefix and manual slicing, use the strings.TrimPrefix function. If the string doesn't start with the prefix, the original string will be returned. Using strings.TrimPrefix reduces complexity, and avoids common bugs, such as off-by-one mistakes.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1018</key>
+		<name>Doubling slice using loop</name>
+		<internalKey>gosimple:S1018</internalKey>
+		<description><![CDATA[
+			<p>copy() permits using the same source and destination slice, even with overlapping ranges. This makes it ideal for sliding elements in a slice: copy(bs[:n], bs[offset:])</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1019Slice</key>
+		<name>make() for slice</name>
+		<internalKey>gosimple:S1019Slice</internalKey>
+		<description><![CDATA[
+			<p>The make function has default values for the length and capacity arguments. For channels and maps, the length defaults to zero. Additionally, for slices the capacity defaults to the length.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1019Map</key>
+		<name>make() for map</name>
+		<internalKey>gosimple:S1019Map</internalKey>
+		<description><![CDATA[
+			<p>The make function has default values for the length and capacity arguments. For channels and maps, the length defaults to zero. Additionally, for slices the capacity defaults to the length.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1019Chan</key>
+		<name>make() for channel</name>
+		<internalKey>gosimple:S1019Chan</internalKey>
+		<description><![CDATA[
+			<p>The make function has default values for the length and capacity arguments. For channels and maps, the length defaults to zero. Additionally, for slices the capacity defaults to the length.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1021</key>
+		<name>Variable declaration and assignment</name>
+		<internalKey>gosimple:S1021</internalKey>
+		<description><![CDATA[
+			<p>Should merge variable declaration and assignment: var x uint = 1</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1020</key>
+		<name>Nil check in type assertion</name>
+		<internalKey>gosimple:S1020</internalKey>
+		<description><![CDATA[
+			<p>Omit redundant nil check in type assertion</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gosimple:S1023</key>
+		<name>Redundant return statement</name>
+		<internalKey>gosimple:S1023</internalKey>
+		<description><![CDATA[
+			<p>Functions that have no return value do not need a return statement as the final statement of the function.
+
+Switches in Go do not have automatic fallthrough, unlike languages like C. It is not necessary to have a break statement as the final statement in a case block.
+</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>	
+	<rule>
+		<key>gosimple:S1024</key>
+		<name>time.Sub()</name>
+		<internalKey>gosimple:S1024</internalKey>
+		<description><![CDATA[
+			<p>The time.Until helper has the same effect as using x.Sub(time.Now()) but is easier to read.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>time</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>	
+	<rule>
+		<key>gosimple:S1025ArgIsStr</key>
+		<name>fmt.Sprintf()</name>
+		<internalKey>gosimple:S1025ArgIsStr</internalKey>
+		<description><![CDATA[
+			<p>In many instances, there are easier and more efficient ways of getting a value's string representation. Whenever a value's underlying type is a string already, or the type has a String method, they should be used directly.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>	
+	<rule>
+		<key>gosimple:S1025TypeIsStr</key>
+		<name>fmt.Sprintf()</name>
+		<internalKey>gosimple:S1025TypeIsStr</internalKey>
+		<description><![CDATA[
+			<p>In many instances, there are easier and more efficient ways of getting a value's string representation. Whenever a value's underlying type is a string already, or the type has a String method, they should be used directly.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>	
+	<rule>
+		<key>gosimple:S1025StringNotSprintf</key>
+		<name>fmt.Sprintf()</name>
+		<internalKey>gosimple:S1025StringNotSprintf</internalKey>
+		<description><![CDATA[
+			<p>In many instances, there are easier and more efficient ways of getting a value's string representation. Whenever a value's underlying type is a string already, or the type has a String method, they should be used directly.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>	
+	<rule>
+		<key>gosimple:S1028</key>
+		<name>errors</name>
+		<internalKey>gosimple:S1028</internalKey>
+		<description><![CDATA[
+			<p>Replace with fmt.Errorf</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>	
+	<rule>
+		<key>gosimple:S1029</key>
+		<name>Range over the string</name>
+		<internalKey>gosimple:S1029</internalKey>
+		<description><![CDATA[
+			<p>Ranging over a string will yield byte offsets and runes. If the offset isn't used, this is functionally equivalent to converting the string to a slice of runes and ranging over that. Ranging directly over the string will be more performant, however, as it avoids allocating a new slice, the size of which depends on the length of the string.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>	
+	<rule>
+		<key>gosimple:S1030StringNotBytes</key>
+		<name>Use bytes.Buffer.String or bytes.Buffer.Bytes</name>
+		<internalKey>gosimple:S1030StringNotBytes</internalKey>
+		<description><![CDATA[
+			<p>bytes.Buffer has both a String and a Bytes method. It is never necessary to use string(buf.Bytes()) or []byte(buf.String()) – simply use the other method.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>	
+	<rule>
+		<key>gosimple:S1030BytesNotString</key>
+		<name>Use bytes.Buffer.String or bytes.Buffer.Bytes</name>
+		<internalKey>gosimple:S1030BytesNotString</internalKey>
+		<description><![CDATA[
+			<p>bytes.Buffer has both a String and a Bytes method. It is never necessary to use string(buf.Bytes()) or []byte(buf.String()) – simply use the other method.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>	
+	<rule>
+		<key>gosimple:S1031</key>
+		<name>redundant nil check around loop</name>
+		<internalKey>gosimple:S1031</internalKey>
+		<description><![CDATA[
+			<p>You can use range on nil slices and maps, the loop will simply never execute. This makes an additional nil check around the loop unnecessary.</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://staticcheck.io/docs/gosimple">staticcheck.io</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>	
+	<rule>
+		<key>gofmt:NotFormatted</key>
+		<name>gofmt</name>
+		<internalKey>gofmt:NotFormatted</internalKey>
+		<description><![CDATA[
+			<p>file is not gofmted with -s</p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://golang.org/cmd/gofmt/">golang.org</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>1min</remediationFunctionBaseEffort>
+	</rule>	
 </go-rules>
